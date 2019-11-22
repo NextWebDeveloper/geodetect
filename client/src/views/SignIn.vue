@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
 	<v-row align="center" justify="center">
-	  <v-col cols="12" sm="8" md="4">
+	  <v-col cols="12" sm="8" md="3">
 		<v-card class="elevation-12">
 		  <v-toolbar color="primary" dark flat>
 			<v-toolbar-title>Sign In</v-toolbar-title>
@@ -72,10 +72,13 @@ export default {
 			.then(res=>{
 				if (res.status === 200) {
 					this.$store.commit('setToken', res.data.token)
+					this.$store.commit('setMainID', res.data.id)
+					this.$router.push({ name: 'dashboard' })
 					// редирект в лк + token
 				}
 			})
 			.catch(err=>{
+				console.log(err);
 				this.errorMessage = err.response.data.message
 			})
 		}

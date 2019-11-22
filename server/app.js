@@ -17,6 +17,27 @@ app.use(bodyParser.urlencoded({
 }));
 
 const port = process.env.PORT || 1000;
+const secret = Buffer.from('u1324vsdv8732rvsdfso9234csac8', 'hex');
+
+const myInterceptor = (req,res,next) =>{
+	if (req.path !== '/api/join' && req.path !== '/api/signin' && req.path !== '/api/detect_ip') {
+		if(!req.headers['authorization']) {
+			return res.sendStatus(401)
+		}
+		try {
+			var auth = jwt.decode(req.headers['authorization'], secret)
+		} catch (err) {
+			return res.sendStatus(401)
+		}
+		User.findOne({email: auth.email}, function(err, user) {
+			if (err) {return res.sendStatus(500)}
+			else {
+				next();
+			}
+		})
+	}
+}
+app.use(myInterceptor);
 
 const connectionString = 'mongodb+srv://geoDBUser:asHnvsz64Vmq9uXH@cluster0-esnud.gcp.mongodb.net/test2?retryWrites=true&w=majority'
 
@@ -102,28 +123,15 @@ app.post('/api/signin', function (req, res) {
 				if (!valid) {
 					return res.status(422).send({message: 'Sorry, your email or password is wrong'})
 				}
-				const secret = Buffer.from('u1324vsdv8732rvsdfso9234csac8', 'hex');
+				
 				const token = jwt.encode({
 					email: email
 				}, secret)
-				res.status(200).send({token: token})
+				res.status(200).send({token: token, id: user._id})
 			})
 		})
 })
 
-app.get('/api/check', function (req, res) {
-    if(!req.headers['x-auth']) {
-        return res.sendStatus(401)
-    }
-    try {
-        var auth = jwt.decode(req.headers['x-auth'], 'abc')
-    } catch (err) {
-        return res.sendStatus(401)
-    }
-    User.findOne({username: auth.username}, function(err, user) {
-        if (err) {return res.sendStatus(500)}
-        else {
-            res.json(user)
-        }
-    })
+app.post('/api/check', function (req, res) {
+	return res.send('asdasd');
 })

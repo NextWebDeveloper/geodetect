@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
 	<v-row align="center" justify="center">
-	  <v-col cols="12" sm="8" md="4">
+	  <v-col cols="12" sm="8" md="3">
 		<template v-if="afterSubmit.status">
 			<v-progress-linear 
 			  v-if="afterSubmit.loading"
@@ -123,6 +123,7 @@ export default {
 					const intv = setInterval(()=>{
 						if (this.afterSubmit.redirectProgress === 100) {
 							clearInterval(intv);
+							this.$router.push({ name: 'signin' });
 						} else {
 							this.afterSubmit.redirectProgress += 0.5;
 						}

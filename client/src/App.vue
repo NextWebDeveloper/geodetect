@@ -5,10 +5,7 @@
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<template v-if="userIn">
-					<v-btn :to="{ name: 'dashboard' }" text depressed dark class="font-weight-bold">
-						<span>Dashboard</span>
-					</v-btn>
+				<template v-if="!userIn">
 					<v-btn :to="{ name: 'signin' }" text depressed dark class="font-weight-bold">
 						<span>Sign in</span>
 					</v-btn>
@@ -17,6 +14,9 @@
 					</v-btn>
 				</template>
 				<template v-else>
+					<v-btn :to="{ name: 'dashboard' }" text depressed dark class="font-weight-bold">
+						<span>Dashboard</span>
+					</v-btn>
 					<v-btn @click="signOut" text depressed dark class="font-weight-bold">
 						<span>Sign out</span>
 					</v-btn>

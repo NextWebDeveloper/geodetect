@@ -1,42 +1,29 @@
 <template>
   <v-navigation-drawer absolute permanent right>
-	<template v-slot:prepend>
-	  <v-list-item two-line>
-		<v-list-item-avatar>
-		  <img src="https://randomuser.me/api/portraits/women/81.jpg" />
-		</v-list-item-avatar>
-
-		<v-list-item-content>
-		  <v-list-item-title>Jane Smith</v-list-item-title>
-		  <v-list-item-subtitle>Logged In</v-list-item-subtitle>
-		</v-list-item-content>
-	  </v-list-item>
-	</template>
-
-	<v-divider></v-divider>
-
-	<v-list dense>
-	  <v-list-item v-for="item in items" :key="item.title" @click>
-		<v-list-item-icon>
+    <v-list dense>
+      <v-list-item @click="generateScript">
+        <!-- <v-list-item-icon>
 		  <v-icon>{{ item.icon }}</v-icon>
-		</v-list-item-icon>
+        </v-list-item-icon>-->
 
-		<v-list-item-content>
-		  <v-list-item-title>{{ item.title }}</v-list-item-title>
-		</v-list-item-content>
-	  </v-list-item>
-	</v-list>
+        <v-list-item-content>
+          <v-list-item-title>Сгенерировать скрипт</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
 export default {
-  data: () => ({
+	data: () => ({}),
 
-  }),
-
-  methods: {
-
-  }
+	methods: {
+		generateScript() {
+			axios.post('check')
+			.then(res=>console.log(res))
+			.catch(err=>console.log(err))
+		}
+	}
 };
 </script>
