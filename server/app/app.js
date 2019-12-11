@@ -17,33 +17,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 const port = process.env.PORT || 1000;
-const secret = Buffer.from('u1324vsdv8732rvsdfso9234csac8', 'hex');
+import secret from "./auth/assets";
 
-const myInterceptor = (req,res,next) =>{
-	if (req.path !== '/api/join' && req.path !== '/api/signin' && req.path !== '/api/detect_ip') {
-		if(!req.headers['authorization']) {
-			return res.sendStatus(401)
-		}
-		try {
-			var auth = jwt.decode(req.headers['authorization'], secret)
-		} catch (err) {
-			return res.sendStatus(401)
-		}
-		User.findOne({email: auth.email}, function(err, user) {
-			if (err) {return res.sendStatus(500)}
-			else {
-				next();
-			}
-		})
-	}
-}
+import myInterceptor from "./api/interceptors";
 app.use(myInterceptor);
 
-const connectionString = 'mongodb+srv://geoDBUser:asHnvsz64Vmq9uXH@cluster0-esnud.gcp.mongodb.net/test2?retryWrites=true&w=majority'
+import connectionString from "./db/connectionString";
 
-const mongoose = require('mongoose')
-const userSchema = require('./userSchema.js')
-const User = mongoose.model('user', userSchema, 'loginsdb')
+const mongoose = require('mongoose');
+import User from "./db/schemas/userSchema";
 
 async function createUser(email, password) {
 	return new User({
@@ -64,7 +46,7 @@ mongoose.connect(connectionString, {
 	useNewUrlParser: true
 }, function (err) {
 	if (err) return console.log(err);
-	app.listen(3000, function () {
+	app.listen(3030, function () {
 		console.log("Сервер ожидает подключения...");
 	});
 });

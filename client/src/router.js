@@ -8,7 +8,7 @@ export default new Router({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes: [{
-			path: '/',
+			path: '/',   
 			name: 'home',
 			component: Home
 		},
@@ -30,7 +30,14 @@ export default new Router({
 		{
 			path: '/dashboard',
 			name: 'dashboard',
-			component: () => import('./views/Dashboard.vue')
+			component: () => import('./views/Dashboard.vue'),
+			children: [
+				{
+					path: 'script-create',
+					name: 'script-create',
+					component: () => import('./views/Scripts.vue')
+				}
+			]
 		}
 	]
 })

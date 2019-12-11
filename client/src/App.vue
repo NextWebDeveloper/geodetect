@@ -61,5 +61,8 @@ export default {
 .v-application {
 	font-family: 'Nunito', sans-serif;
 }
+.v-application * {
+	font-family: 'Nunito', sans-serif;
+}
 
 </style>

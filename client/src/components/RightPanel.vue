@@ -1,7 +1,7 @@
 <template>
-  <v-navigation-drawer absolute permanent right>
+  <v-navigation-drawer right>
     <v-list dense>
-      <v-list-item @click="generateScript">
+      <v-list-item :to="{ name: 'script-create' }" @click="generateScript">
         <!-- <v-list-item-icon>
 		  <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>-->

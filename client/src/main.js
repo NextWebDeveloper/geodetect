@@ -1,4 +1,4 @@
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
 
 import Vue from 'vue'
 import App from './App.vue'
@@ -9,7 +9,7 @@ import axios from 'axios'
 import vuetify from './plugins/vuetify';
 
 window.axios = axios;
-window.axios.defaults.baseURL = 'http://localhost:3000/api/'
+window.axios.defaults.baseURL = 'http://localhost:3030/api/'
 
 Vue.config.productionTip = false;
 

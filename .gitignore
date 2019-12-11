@@ -20,3 +20,7 @@
 **/*.njsproj
 **/*.sln
 **/*.sw?
+
+# server ignored files
+server/app/db/connectionString.js
+server/app/auth/assets.js
